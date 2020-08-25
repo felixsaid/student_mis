@@ -4,10 +4,12 @@ const bcrypt = require("bcrypt");
 const moment = require("moment");
 const jwtGenerator = require("../utils/jwtGenerator");
 const { json } = require("express");
+const ValidInfo = require("../middleware/ValidInfo");
+const authorization = require("../middleware/authorization");
 moment().format();
 
 //register route
-router.post("/register", async (req, res) => {
+router.post("/register", ValidInfo, async (req, res) => {
   try {
     const { name, email, phone, role, password } = req.body;
 
@@ -49,7 +51,7 @@ router.post("/register", async (req, res) => {
 
 //login router
 
-router.post("/login", async (req, res) => {
+router.post("/login", ValidInfo, async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -85,7 +87,7 @@ router.post("/login", async (req, res) => {
 
 //verification route
 
-router.get("/is-verify", async (req, res) => {
+router.get("/is-verify", authorization, async (req, res) => {
   try {
     res.json(true);
   } catch (err) {
