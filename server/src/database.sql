@@ -16,6 +16,26 @@ CREATE TABLE users(
     CONSTRAINT fk_role FOREIGN KEY(user_role) REFERENCES roles(role_id)
 );
 
+CREATE TABLE students(
+    student_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    student_number VARCHAR(255) NOT NULL,
+    registration_date TIMESTAMP,
+    student_status VARCHAR(255) NOT NULL,
+    user_id uuid,
+    CONSTRAINT fk_user FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE courses(
+    course_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    course_name VARCHAR(255) NOT NULL,
+    course_status VARCHAR(255) NOT NULL,
+    date_created TIMESTAMP,
+    user_id uuid,
+    CONSTRAINT fk_users FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
 INSERT INTO roles(role_name) VALUES ('Admin');
 INSERT INTO roles(role_name) VALUES ('Finance');
 

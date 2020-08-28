@@ -12,7 +12,10 @@ app.use(express.json());
 app.use("/v1/auth", require("./routes/jwtAuth"));
 
 //dashboard router
-app.use("/dashboard", require("./routes/dashboard"));
+app.use("/v1/dashboard", require("./routes/dashboard"));
+
+//courses route
+app.use("/v1/courses", require("./routes/courses"));
 
 app.listen(5001, () => {
   console.log("Server is listening to port 5001");
