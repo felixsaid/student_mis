@@ -36,10 +36,21 @@ CREATE TABLE courses(
     CONSTRAINT fk_users FOREIGN KEY(user_id) REFERENCES users(user_id)
 );
 
+CREATE TABLE student_courses(
+    allocation_id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    student_id uuid,
+    course_id uuid,
+    enroll_date TIMESTAMP,
+    end_date TIMESTAMP,
+    status VARCHAR(255) NOT NULL,
+    CONSTRAINT fk_all_students FOREIGN KEY(student_id) REFERENCES students(student_id),
+    CONSTRAINT fk_all_courses FOREIGN KEY(course_id) REFERENCES courses(course_id)
+);
+
 INSERT INTO roles(role_name) VALUES ('Admin');
 INSERT INTO roles(role_name) VALUES ('Finance');
 
 INSERT INTO users(user_name, user_email, user_phone, user_role, datecreated, accountstatus) 
-VALUES('Felix Kiamba', 'kiambafelix@yahoo.com', '0739533409', 'fba4bf08-2599-41f2-8843-7a13eb39c023', now(), 'Active');
+VALUES('Felix Kiamba', 'kiambafelix@yahoo.com', '0739533409', '63dbfda2-1646-4911-a12a-173a22eb3b5b', now(), 'Active');
 
 ALTER TABLE users ADD COLUMN user_password VARCHAR(255);
